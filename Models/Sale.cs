@@ -10,6 +10,7 @@ namespace tech_test_payment_api.Models
         public int Id { get; set; }
         public Seller? Seller { get; set; }
         public List<Item>? Item { get; set; }
-        
+        public Status? status { get; set; }
+
     }
 }
