@@ -9,8 +9,13 @@ namespace tech_test_payment_api.repositories
     public class SaleRepositoryDataLocal : ISalesRepository
     {  
 
-        private List<Sale> _sales = new List<Sale>();
+        private readonly List<Sale> _sales;
 
+        public SaleRepositoryDataLocal()
+        {   
+            Console.WriteLine("aqui");
+            _sales = new List<Sale>();
+        }
         
         Sale ISalesRepository.GetSaleById(int id)
         {   
@@ -19,8 +24,8 @@ namespace tech_test_payment_api.repositories
         }
 
         void ISalesRepository.RegisterSale(Sale sale)
-        {
-            _sales.Append(sale);
+        {   
+            _sales.Add(sale);
         }
 
         void ISalesRepository.UpdateSale(Status status, int id)
