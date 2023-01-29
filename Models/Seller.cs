@@ -2,17 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace tech_test_payment_api.Models
 {
     public class Seller 
     {   
-    
+        
+        [Required(ErrorMessage = "Vendedor precisa de um identificador")]
         public int Id { set; get; }
-        public string? Cpf { get; set; }
-        public string? Name { get; set; }
-        public string? Email { get; set; }
-        public string? Phone { get; set; }
+
+        [Required(ErrorMessage = "O campo CPF precisa ser válido")]
+        public string Cpf { get; set; }
+
+        [Required(ErrorMessage = "O campo Name precisa ser válido")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "O campo Email precisa ser válido")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "O campo Phone precisa ser válido")]
+        public string Phone { get; set; }
 
     }
 }
