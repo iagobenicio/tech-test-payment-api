@@ -7,20 +7,28 @@ using tech_test_payment_api.Models;
 namespace tech_test_payment_api.repositories
 {
     public class SaleRepositoryDataLocal : ISalesRepository
-    {
+    {  
+
+        private List<Sale> _sales = new List<Sale>();
+
+        
         Sale ISalesRepository.GetSaleById(int id)
-        {
-            throw new NotImplementedException();
+        {   
+            var sale = _sales.Where(sale => sale.Id == id).First();
+            return sale;
         }
 
         void ISalesRepository.RegisterSale(Sale sale)
         {
-            throw new NotImplementedException();
+            _sales.Append(sale);
         }
 
         void ISalesRepository.UpdateSale(Status status, int id)
         {
-            throw new NotImplementedException();
+            var sale = _sales.Where(sale => sale.Id == id).First();
+
+            sale.status = status;
+
         }
     }
 }
