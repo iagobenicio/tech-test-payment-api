@@ -1,11 +1,15 @@
+using System.Text.Json.Serialization;
 using tech_test_payment_api.repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<ISalesRepository,SaleRepositoryDataLocal>();
+builder.Services.AddSingleton<ISalesRepository,SaleRepositoryDataLocal>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers().AddJsonOptions(options =>
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+    
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
