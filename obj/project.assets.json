@@ -465,11 +465,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pichau\\Desktop\\.net projetos\\tech-test-payment-api\\tech-test-payment-api.csproj",
+      "projectUniqueName": "C:\\Users\\Pichau\\Desktop\\.net projetos\\tech-test-payment-api\\api\\tech-test-payment-api\\tech-test-payment-api.csproj",
       "projectName": "tech-test-payment-api",
-      "projectPath": "C:\\Users\\Pichau\\Desktop\\.net projetos\\tech-test-payment-api\\tech-test-payment-api.csproj",
+      "projectPath": "C:\\Users\\Pichau\\Desktop\\.net projetos\\tech-test-payment-api\\api\\tech-test-payment-api\\tech-test-payment-api.csproj",
       "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pichau\\Desktop\\.net projetos\\tech-test-payment-api\\obj\\",
+      "outputPath": "C:\\Users\\Pichau\\Desktop\\.net projetos\\tech-test-payment-api\\api\\tech-test-payment-api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Pichau\\AppData\\Roaming\\NuGet\\NuGet.Config"
