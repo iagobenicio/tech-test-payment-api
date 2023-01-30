@@ -15,10 +15,10 @@ namespace payment_api.Models
         public List<Item> Item { get; set; }
 
         [Required]
-        public Status status { get; set; }
+        public Status Status { get; set; }
 
         [Required]
-        public DateTime date {get; set;}
+        public DateTime Date {get; set;}
 
     }
 }

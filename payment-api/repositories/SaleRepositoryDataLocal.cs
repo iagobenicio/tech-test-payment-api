@@ -8,10 +8,9 @@ namespace payment_api.repositories
 
         private readonly List<Sale> _sales;
 
-        public SaleRepositoryDataLocal()
+        public SaleRepositoryDataLocal(List<Sale> sales)
         {   
-            Console.WriteLine("aqui");
-            _sales = new List<Sale>();
+            _sales = sales;
         }
         
         public Sale GetSaleById(int id)
@@ -26,9 +25,9 @@ namespace payment_api.repositories
 
         public void RegisterSale(Sale sale)
         {   
-            if (sale.status != Status.AguardandoPagamento)
+            if (sale.Status != Status.AguardandoPagamento)
             {
-                sale.status = Status.AguardandoPagamento;
+                sale.Status = Status.AguardandoPagamento;
             }
             _sales.Add(sale);
         }
@@ -37,9 +36,9 @@ namespace payment_api.repositories
         {
             var sale = GetSaleById(id);
 
-            if (status != sale.status)
+            if (status != sale.Status)
             {
-                switch (sale.status)
+                switch (sale.Status)
                 {
                     case Status.AguardandoPagamento:
 
@@ -48,7 +47,7 @@ namespace payment_api.repositories
                             throw new InvalidTransitionException($"o status só pode ser alterado para {Status.PagamentoAprovado} ou {Status.Cancelada}");
                         }
 
-                        sale.status = status;
+                        sale.Status = status;
                         break;
                     case Status.PagamentoAprovado:
 
@@ -56,7 +55,7 @@ namespace payment_api.repositories
                         {
                             throw new InvalidTransitionException($"o status só pode ser alterado para {Status.Cancelada} ou {Status.EnviadoParaTransportadora}");
                         }
-                        sale.status = status;
+                        sale.Status = status;
                         break;
                     case Status.EnviadoParaTransportadora:
 
@@ -64,7 +63,7 @@ namespace payment_api.repositories
                         {
                             throw new InvalidTransitionException($"o status só pode ser alterado para {Status.Entregue}");
                         }
-                        sale.status = status;
+                        sale.Status = status;
                         break;
                 }
             }

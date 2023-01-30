@@ -1,10 +1,12 @@
 using System.Text.Json.Serialization;
+using payment_api.Models;
 using payment_api.repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+List<Sale> sale = new List<Sale>();
 // Add services to the container.
-builder.Services.AddSingleton<ISalesRepository,SaleRepositoryDataLocal>();
+builder.Services.AddSingleton<ISalesRepository>(new SaleRepositoryDataLocal(sale));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddControllers().AddJsonOptions(options =>
