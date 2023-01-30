@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace payment_api.exceptions
 {
     public class InvalidSaleException : Exception
