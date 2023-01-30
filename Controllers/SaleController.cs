@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using tech_test_payment_api.exceptions;
 using tech_test_payment_api.Models;
+using tech_test_payment_api.repositories;
 
 namespace tech_test_payment_api.Controllers
 
@@ -12,28 +14,59 @@ namespace tech_test_payment_api.Controllers
     [Route("api-docs")]
     public class SaleController : ControllerBase
     {
-        private List<Sale>? _sales = new List<Sale>();
+        private readonly ISalesRepository _repository;
 
-
-        [HttpPost]
-        public IActionResult Register(Sale sale)
-        {   
-            Console.WriteLine(sale!.Seller!.Name);
-            if (sale == null)
-            {
-                return NotFound();
-            }
-            _sales!.Add(sale);
-            return Ok();
+        public SaleController(ISalesRepository repository)
+        {
+            _repository = repository;
         }
 
-        [HttpGet("{id}")]
+
+        [HttpPost("sales")]
+        public IActionResult Register(Sale sale)
+        {   
+  
+            _repository.RegisterSale(sale);
+            return CreatedAtAction(nameof(GetSale), new {id = sale.Id}, sale);
+
+        }
+
+        [HttpGet("sales/{id}")]
         public IActionResult GetSale(int id)
         {
-           var sale = _sales!.Where(item => item.Id == id).First();
 
-            return Ok(sale);
+            try
+            {
+                var sale = _repository.GetSaleById(id);
+                return Ok(sale);
+            }
+            catch (InvalidSaleException e)
+            {
+                return NotFound(e.ToString());
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.ToString());
+            }
 
+        }
+
+        [HttpPatch("/sales/{id}/{status}")]
+        public IActionResult UpdateSaleStatus(int id, Status status)
+        {
+            try
+            {
+                _repository.UpdateSale(status,id);
+                return Ok();
+            }
+            catch (InvalidTransitionException e)
+            {
+                return BadRequest(e.ToString());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.ToString());
+            }
         }
 
     }
