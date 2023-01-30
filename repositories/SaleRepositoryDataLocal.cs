@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using tech_test_payment_api.exceptions;
 using tech_test_payment_api.Models;
 
 namespace tech_test_payment_api.repositories
@@ -17,23 +18,60 @@ namespace tech_test_payment_api.repositories
             _sales = new List<Sale>();
         }
         
-        Sale ISalesRepository.GetSaleById(int id)
-        {   
-            var sale = _sales.Where(sale => sale.Id == id).First();
+        public Sale GetSaleById(int id)
+        {     
+            var sale = _sales.Find(x => x.Id == id);
+            if (sale == null)
+            {
+                throw new InvalidSaleException(id);
+            }
             return sale;
         }
 
-        void ISalesRepository.RegisterSale(Sale sale)
+        public void RegisterSale(Sale sale)
         {   
+            if (sale.status != Status.AguardandoPagamento)
+            {
+                sale.status = Status.AguardandoPagamento;
+            }
             _sales.Add(sale);
         }
 
-        void ISalesRepository.UpdateSale(Status status, int id)
+        public void UpdateSale(Status status, int id)
         {
-            var sale = _sales.Where(sale => sale.Id == id).First();
+            var sale = GetSaleById(id);
 
-            sale.status = status;
+            if (status != sale.status)
+            {
+                switch (sale.status)
+                {
+                    case Status.AguardandoPagamento:
 
+                        if (!(status == Status.PagamentoAprovado || status == Status.Cancelada))
+                        {
+                            throw new InvalidTransitionException($"o status só pode ser alterado para {Status.PagamentoAprovado} ou {Status.Cancelada}");
+                        }
+
+                        sale.status = status;
+                        break;
+                    case Status.PagamentoAprovado:
+
+                        if (!(status == Status.Cancelada || status == Status.EnviadoParaTransportadora))
+                        {
+                            throw new InvalidTransitionException($"o status só pode ser alterado para {Status.Cancelada} ou {Status.EnviadoParaTransportadora}");
+                        }
+                        sale.status = status;
+                        break;
+                    case Status.EnviadoParaTransportadora:
+
+                        if (!(status == Status.Entregue))
+                        {
+                            throw new InvalidTransitionException($"o status só pode ser alterado para {Status.Entregue}");
+                        }
+                        sale.status = status;
+                        break;
+                }
+            }
         }
     }
 }
