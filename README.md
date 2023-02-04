@@ -1,13 +1,30 @@
-## INSTRUÇÕES PARA O TESTE TÉCNICO
+# O Projeto 
 
-- Crie um fork deste projeto (https://gitlab.com/Pottencial/tech-test-payment-api/-/forks/new). É preciso estar logado na sua conta Gitlab;
-- Adicione @Pottencial (Pottencial Seguradora) como membro do seu fork. Você pode fazer isto em  https://gitlab.com/`your-user`/tech-test-payment-api/settings/members;
- - Quando você começar, faça um commit vazio com a mensagem "Iniciando o teste de tecnologia" e quando terminar, faça o commit com uma mensagem "Finalizado o teste de tecnologia";
- - Commit após cada ciclo de refatoração pelo menos;
- - Não use branches;
- - Você deve prover evidências suficientes de que sua solução está completa indicando, no mínimo, que ela funciona;
+Este projeto trata-se de um desafio final do bootcamp Pottencial .NET, na DIO. O projeto foi entregue no Gitlab: https://gitlab.com/iagobensen/tech-test-payment-api
+O projeto trata-se de uma API que simula uma venda. O mesmo não precisava ser persistindo em um banco de dados, porém tinha como foco de avaliação: testes unitários, 
+código limpo, SOLID, etc... 
 
-## O TESTE
+O projeto foi fetio em .NET, onde trabalhei com SOLUTION pois fiz 2 projetos, um para testes e outro para a API. 
+
+Iniciando o projeto da API, resolvi primeiramente separa as camdas, onde coloquei uma camda de repositories para os dados. A camda de controller ficou responsável
+por controlar o fluxo, requisitando os dados para o repositorie e os retornando. 
+
+#  Implementações
+
+- Camda de repositoires para a inserção de dados, consultar dado, e atualizar, utilizando uma lista para fazer as operações. 
+- Endpoints em um controller com os metódos: POTS, GET e PATCH, para, respectivamente, Registrar uma venda, consultar venda através do seu ID, e atualizar o status de uma venda, passando um novo status e seu id. No Controller foi feita uma injeção de dependência do repository. 
+- Validações nos Modelos através do "ComponentModel.DataAnnotations"
+- Casos de testes unitários, utilizando o XUnit, tanto para a camada controller, bem como para o repositories, utilizando Moq, implementado testes de "caminho feliz" e "caminho triste",
+ou seja, teste para caso que de certo, e teste simulando um erro. 
+- Classes para trabalhar com Exceptions costumizados.  
+
+# Apredizados. 
+
+Neste projeto pude aprender como posso ta fazendo validações através do DataAnnotions, onde pode retornar mensagens de erro. 
+Pude aprender também como implementar casos de testes unitários utilizando o Xunit. Nos testes unitários em alguns casos eu também utilizo Moqs.  
+
+# O Teste
+
 - Construir uma API REST utilizando .Net Core, Java ou NodeJs (com Typescript);
 - A API deve expor uma rota com documentação swagger (http://.../api-docs).
 - A API deve possuir 3 operações:
@@ -27,9 +44,4 @@
 - A API não precisa ter mecanismos de autenticação/autorização;
 - A aplicação não precisa implementar os mecanismos de persistência em um banco de dados, eles podem ser persistidos "em memória".
 
-## PONTOS QUE SERÃO AVALIADOS
-- Arquitetura da aplicação - embora não existam muitos requisitos de negócio, iremos avaliar como o projeto foi estruturada, bem como camadas e suas responsabilidades;
-- Programação orientada a objetos;
-- Boas práticas e princípios como SOLID, DDD (opcional), DRY, KISS;
-- Testes unitários;
-- Uso correto do padrão REST;
+
